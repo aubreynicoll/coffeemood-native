@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   StyleSheet, Text, View, ImageBackground,
 } from 'react-native'
@@ -12,6 +12,7 @@ import {
   PlayfairDisplay_700Bold,
 } from '@expo-google-fonts/playfair-display'
 import bgImage from './assets/bg.jpg'
+import quotesService from './src/services/quotesService'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,11 +24,13 @@ const styles = StyleSheet.create({
   p: {
     fontFamily: 'PlayfairDisplay_400Regular',
     color: 'white',
+    textAlign: 'center',
   },
   h1: {
     fontSize: 40,
     fontFamily: 'PlayfairDisplay_400Regular',
     color: 'white',
+    textAlign: 'center',
   },
   image: {
     flex: 1,
@@ -43,14 +46,30 @@ const App = () => {
     PlayfairDisplay_400Regular,
     PlayfairDisplay_700Bold,
   })
+  const [quoteOfTheDay, setQuoteOfTheDay] = useState('')
+  const [quoteLoaded, setQuoteLoaded] = useState(false)
 
-  if (!fontsLoaded) return <AppLoading />
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const quote = await quotesService.getQuoteOfTheDay()
+        setQuoteOfTheDay(quote)
+        setQuoteLoaded(true)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchQuote()
+  }, [])
+
+  if (!fontsLoaded || !quoteLoaded) return <AppLoading />
 
   return (
     <View style={styles.container}>
       <ImageBackground source={bgImage} style={styles.image}>
         <Text style={styles.h1}>CoffeeMood</Text>
         <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
+        <Text style={styles.p}>{quoteOfTheDay.q}</Text>
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
