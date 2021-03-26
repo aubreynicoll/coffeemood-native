@@ -20,7 +20,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
+  p: {
+    fontFamily: 'PlayfairDisplay_400Regular',
+    color: 'white',
+  },
+  h1: {
+    fontSize: 40,
     fontFamily: 'PlayfairDisplay_400Regular',
     color: 'white',
   },
@@ -44,8 +49,8 @@ const App = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={bgImage} style={styles.image}>
-        <Text h1 style={styles.text}>CoffeeMood&trade;</Text>
-        <Text h2 style={styles.text}>Café Sounds for Focus &amp; Study</Text>
+        <Text style={styles.h1}>CoffeeMood</Text>
+        <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
