@@ -21,21 +21,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  header: {
+    marginVertical: 128,
+  },
   p: {
+    fontSize: 16,
     fontFamily: 'PlayfairDisplay_400Regular',
     color: 'white',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
     textAlign: 'center',
+    marginHorizontal: 64,
   },
   h1: {
     fontSize: 40,
     fontFamily: 'PlayfairDisplay_400Regular',
     color: 'white',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
     textAlign: 'center',
   },
   image: {
     flex: 1,
     width: '100%',
     resizeMode: 'cover',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageBlend: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: 'rgba(0,0,0,0.33)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -67,10 +85,20 @@ const App = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={bgImage} style={styles.image}>
-        <Text style={styles.h1}>CoffeeMood</Text>
-        <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
-        <Text style={styles.p}>{quoteOfTheDay.q}</Text>
-        <StatusBar style="auto" />
+        <View style={styles.imageBlend}>
+          <View style={styles.header}>
+            <Text style={styles.h1}>CoffeeMood</Text>
+            <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
+          </View>
+          <View>
+            <Text style={styles.p}>
+              &quot;
+              {quoteOfTheDay.q}
+              &quot;
+            </Text>
+          </View>
+          <StatusBar style="auto" />
+        </View>
       </ImageBackground>
     </View>
   )
