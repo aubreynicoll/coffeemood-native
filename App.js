@@ -21,15 +21,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  header: {
+    marginVertical: 128,
+  },
   p: {
+    fontSize: 16,
     fontFamily: 'PlayfairDisplay_400Regular',
     color: 'white',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
     textAlign: 'center',
+    marginHorizontal: 64,
   },
   h1: {
     fontSize: 40,
     fontFamily: 'PlayfairDisplay_400Regular',
     color: 'white',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
     textAlign: 'center',
   },
   image: {
@@ -75,12 +86,16 @@ const App = () => {
     <View style={styles.container}>
       <ImageBackground source={bgImage} style={styles.image}>
         <View style={styles.imageBlend}>
-          <View>
+          <View style={styles.header}>
             <Text style={styles.h1}>CoffeeMood</Text>
             <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
           </View>
           <View>
-            <Text style={styles.p}>{quoteOfTheDay.q}</Text>
+            <Text style={styles.p}>
+              &quot;
+              {quoteOfTheDay.q}
+              &quot;
+            </Text>
           </View>
           <StatusBar style="auto" />
         </View>
