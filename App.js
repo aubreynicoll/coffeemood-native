@@ -39,6 +39,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  imageBlend: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: 'rgba(0,0,0,0.33)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
 
 const App = () => {
@@ -67,10 +74,16 @@ const App = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={bgImage} style={styles.image}>
-        <Text style={styles.h1}>CoffeeMood</Text>
-        <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
-        <Text style={styles.p}>{quoteOfTheDay.q}</Text>
-        <StatusBar style="auto" />
+        <View style={styles.imageBlend}>
+          <View>
+            <Text style={styles.h1}>CoffeeMood</Text>
+            <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
+          </View>
+          <View>
+            <Text style={styles.p}>{quoteOfTheDay.q}</Text>
+          </View>
+          <StatusBar style="auto" />
+        </View>
       </ImageBackground>
     </View>
   )
