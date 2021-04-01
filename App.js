@@ -1,7 +1,8 @@
+/* eslint-disable react/style-prop-object */
 import { StatusBar } from 'expo-status-bar'
 import React, { useState, useEffect } from 'react'
 import {
-  StyleSheet, Text, View, ImageBackground,
+  StyleSheet, Text, View, ImageBackground, Button,
 } from 'react-native'
 import AppLoading from 'expo-app-loading'
 import {
@@ -11,8 +12,10 @@ import {
   // eslint-disable-next-line camelcase
   PlayfairDisplay_700Bold,
 } from '@expo-google-fonts/playfair-display'
+import { Audio } from 'expo-av'
 import bgImage from './assets/bg.jpg'
 import quotesService from './src/services/quotesService'
+import audioFile from './assets/cafe.m4a'
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +69,10 @@ const App = () => {
   })
   const [quoteOfTheDay, setQuoteOfTheDay] = useState('')
   const [quoteLoaded, setQuoteLoaded] = useState(false)
+  const [sound, setSound] = useState(null)
+  const [isPlaying, setIsPlaying] = useState(false)
 
+  // on first render:
   useEffect(() => {
     const fetchQuote = async () => {
       try {
@@ -77,8 +83,30 @@ const App = () => {
         console.log(error)
       }
     }
+
+    const loadAudio = async () => {
+      try {
+        const { sound } = await Audio.Sound.createAsync(audioFile)
+        await sound.setIsLoopingAsync(true)
+        setSound(sound)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     fetchQuote()
+    loadAudio()
   }, [])
+
+  const handlePlayButton = async () => {
+    if (!isPlaying) {
+      sound.playAsync()
+      setIsPlaying(true)
+    } else {
+      sound.pauseAsync()
+      setIsPlaying(false)
+    }
+  }
 
   if (!fontsLoaded || !quoteLoaded) return <AppLoading />
 
@@ -86,6 +114,10 @@ const App = () => {
     <View style={styles.container}>
       <ImageBackground source={bgImage} style={styles.image}>
         <View style={styles.imageBlend}>
+          <Button
+            title="Play"
+            onPress={handlePlayButton}
+          />
           <View style={styles.header}>
             <Text style={styles.h1}>CoffeeMood</Text>
             <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
