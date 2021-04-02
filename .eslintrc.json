@@ -21,6 +21,7 @@
       "semi": ["error", "never"],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "arrow-body-style": "off",
-      "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+      "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+      "no-shadow": "off"
     }
 }
