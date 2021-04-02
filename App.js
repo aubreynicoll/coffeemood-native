@@ -2,7 +2,7 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useState, useEffect } from 'react'
 import {
-  StyleSheet, Text, View, ImageBackground, Button,
+  StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity,
 } from 'react-native'
 import AppLoading from 'expo-app-loading'
 import {
@@ -16,16 +16,19 @@ import { Audio } from 'expo-av'
 import bgImage from './assets/bg.jpg'
 import quotesService from './src/services/quotesService'
 import audioFile from './assets/cafe.m4a'
+import playButtonImg from './assets/play-button.png'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
   header: {
-    marginVertical: 128,
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   p: {
     fontSize: 16,
@@ -46,6 +49,9 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
     textAlign: 'center',
   },
+  quoteBlock: {
+    flex: 1,
+  },
   image: {
     flex: 1,
     width: '100%',
@@ -59,6 +65,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.33)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  playButton: {
+    width: 100,
+    height: 100,
   },
 })
 
@@ -77,7 +87,7 @@ const App = () => {
     const fetchQuote = async () => {
       try {
         const quote = await quotesService.getQuoteOfTheDay()
-        setQuoteOfTheDay(quote)
+        setQuoteOfTheDay(quote.q.trim())
         setQuoteLoaded(true)
       } catch (error) {
         console.log(error)
@@ -114,22 +124,25 @@ const App = () => {
     <View style={styles.container}>
       <ImageBackground source={bgImage} style={styles.image}>
         <View style={styles.imageBlend}>
-          <Button
-            title="Play"
-            onPress={handlePlayButton}
-          />
+
           <View style={styles.header}>
+            <TouchableOpacity onPress={handlePlayButton}>
+              <Image source={playButtonImg} resizeMethod="resize" resizeMode="contain" style={styles.playButton} onClick={handlePlayButton} />
+            </TouchableOpacity>
             <Text style={styles.h1}>CoffeeMood</Text>
             <Text style={styles.p}>Café Sounds for Focus &amp; Study</Text>
           </View>
-          <View>
+
+          <View style={styles.quoteBlock}>
             <Text style={styles.p}>
               &quot;
-              {quoteOfTheDay.q}
+              {quoteOfTheDay}
               &quot;
             </Text>
           </View>
+
           <StatusBar style="auto" />
+
         </View>
       </ImageBackground>
     </View>
