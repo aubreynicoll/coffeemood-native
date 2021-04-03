@@ -17,6 +17,7 @@ import bgImage from './assets/bg.jpg'
 import quotesService from './src/services/quotesService'
 import audioFile from './assets/cafe.m4a'
 import playButtonImg from './assets/play-button.png'
+import storeWithExpiry from './src/util/storeWithExpiry'
 
 const styles = StyleSheet.create({
   container: {
@@ -86,11 +87,17 @@ const App = () => {
   useEffect(() => {
     const fetchQuote = async () => {
       try {
-        const quote = await quotesService.getQuoteOfTheDay()
+        let quote = await storeWithExpiry.getItem('quoteOfTheDay')
+
+        if (!quote) {
+          quote = await quotesService.getQuoteOfTheDay()
+          storeWithExpiry.setItem('quoteOfTheDay', quote, 24)
+        }
+
         setQuoteOfTheDay(quote.q.trim())
         setQuoteLoaded(true)
-      } catch (error) {
-        console.log(error)
+      } catch (e) {
+        console.log(e)
       }
     }
 
