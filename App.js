@@ -18,6 +18,7 @@ import quotesService from './src/services/quotesService'
 import audioFile from './assets/cafe.m4a'
 import playButtonImg from './assets/play-button.png'
 import storeWithExpiry from './src/util/storeWithExpiry'
+import logger from './src/util/logger'
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +98,7 @@ const App = () => {
         setQuoteOfTheDay(quote.q.trim())
         setQuoteLoaded(true)
       } catch (e) {
-        console.log(e)
+        logger.error(e)
       }
     }
 
@@ -107,7 +108,7 @@ const App = () => {
         await sound.setIsLoopingAsync(true)
         setSound(sound)
       } catch (error) {
-        console.log(error)
+        logger.error(error)
       }
     }
 

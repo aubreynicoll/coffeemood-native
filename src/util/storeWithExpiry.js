@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import logger from './logger'
 
 const setItem = async (key, value, hoursToLive) => {
   const date = new Date()
@@ -12,7 +13,7 @@ const setItem = async (key, value, hoursToLive) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(item))
   } catch (e) {
-    console.error(e)
+    logger.error(e)
   }
 }
 
@@ -23,7 +24,7 @@ const getItem = async (key) => {
   try {
     item = JSON.parse(await AsyncStorage.getItem(key))
   } catch (e) {
-    console.error(e)
+    logger.error(e)
   }
 
   if (!item || date > item.expiry) {
