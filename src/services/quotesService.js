@@ -4,15 +4,12 @@ import logger from '../util/logger'
 const baseUrl = 'https://zenquotes.io/api/random'
 
 const getQuoteOfTheDay = async () => {
-  let qod
-
   try {
-    qod = await axios.get(baseUrl)
+    const qod = await axios.get(baseUrl)
+    return qod.data[0]
   } catch (error) {
     logger.error(error)
   }
-
-  return qod.data[0]
 }
 
 export default {
