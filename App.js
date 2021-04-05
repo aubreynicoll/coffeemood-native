@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   header: {
-    flex: 3,
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,
     textAlign: 'center',
-    marginHorizontal: 64,
+    marginHorizontal: 32,
   },
   h1: {
     fontSize: 40,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   quoteBlock: {
-    flex: 1,
+    flex: 2,
   },
   image: {
     flex: 1,
