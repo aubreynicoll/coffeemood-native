@@ -126,7 +126,7 @@ const App = () => {
     }
   }
 
-  if (!fontsLoaded || !quoteLoaded) return <AppLoading />
+  if (!fontsLoaded || !quoteLoaded || !sound) return <AppLoading />
 
   return (
     <View style={styles.container}>
