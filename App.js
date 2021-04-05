@@ -82,6 +82,7 @@ const App = () => {
   const [quoteOfTheDay, setQuoteOfTheDay] = useState('')
   const [quoteLoaded, setQuoteLoaded] = useState(false)
   const [sound, setSound] = useState(null)
+  const [soundLoaded, setSoundLoaded] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
 
   // on first render:
@@ -107,6 +108,7 @@ const App = () => {
         const { sound } = await Audio.Sound.createAsync(audioFile)
         await sound.setIsLoopingAsync(true)
         setSound(sound)
+        setSoundLoaded(true)
       } catch (error) {
         logger.error(error)
       }
@@ -126,7 +128,7 @@ const App = () => {
     }
   }
 
-  if (!fontsLoaded || !quoteLoaded || !sound) return <AppLoading />
+  if (!fontsLoaded || !quoteLoaded || !soundLoaded) return <AppLoading />
 
   return (
     <View style={styles.container}>
