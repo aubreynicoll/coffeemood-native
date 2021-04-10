@@ -79,8 +79,7 @@ const App = () => {
     PlayfairDisplay_400Regular,
     PlayfairDisplay_700Bold,
   })
-  const [quoteOfTheDay, setQuoteOfTheDay] = useState('')
-  const [quoteLoaded, setQuoteLoaded] = useState(false)
+  const [quoteOfTheDay, setQuoteOfTheDay] = useState('Life is really simple, but we insist on making it complicated.')
   const [sound, setSound] = useState(null)
   const [soundLoaded, setSoundLoaded] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -97,7 +96,6 @@ const App = () => {
         }
 
         setQuoteOfTheDay(quote.q.trim())
-        setQuoteLoaded(true)
       } catch (e) {
         logger.error(e)
       }
@@ -132,7 +130,7 @@ const App = () => {
     }
   }
 
-  if (!fontsLoaded || !quoteLoaded || !soundLoaded) return <AppLoading />
+  if (!fontsLoaded || !soundLoaded) return <AppLoading />
 
   return (
     <View style={styles.container}>
