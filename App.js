@@ -105,6 +105,10 @@ const App = () => {
 
     const loadAudio = async () => {
       try {
+        await Audio.setAudioModeAsync({
+          staysActiveInBackground: true,
+          playsInSilentModeIOS: true,
+        })
         const { sound } = await Audio.Sound.createAsync(audioFile)
         await sound.setIsLoopingAsync(true)
         setSound(sound)
